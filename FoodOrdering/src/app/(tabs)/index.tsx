@@ -5,7 +5,7 @@ import ProductListItme from '../../components/ProductListItem';
 export default function MenuScreen() {
   return (
     <View>
-      <ProductListItme product={products[0]} />
+      <ProductListItme product={products[5]} />
       <ProductListItme product={products[1]} />
     </View>
   );
