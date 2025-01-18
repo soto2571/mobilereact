@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.light.tint,
     padding: 15,
+    width: '100%',
     alignItems: 'center',
     borderRadius: 100,
     marginVertical: 10,
