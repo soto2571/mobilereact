@@ -6,6 +6,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import CartProvider from '../providers/CartProviders';
+import AuthProvider from '../providers/AuthProvider';
 
 import { useColorScheme } from '@/src/components/useColorScheme';
 
@@ -51,6 +52,7 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <AuthProvider>
       <CartProvider>
       <Stack>
         <Stack.Screen name="(user)" options={{ headerShown: false }} />
@@ -59,6 +61,7 @@ function RootLayoutNav() {
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       </Stack>
       </CartProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
