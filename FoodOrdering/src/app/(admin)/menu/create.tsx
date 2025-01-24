@@ -1,10 +1,12 @@
 import { Text, View, StyleSheet, TextInput, Image, Alert } from 'react-native'
 import Button from '../../../components/Button'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { defaultPizzaImage } from '../../../components/ProductListItem'
 import Colors from '../../../constants/Colors'
 import * as ImagePicker from 'expo-image-picker'
 import { Stack, useLocalSearchParams } from 'expo-router'
+import { useInsertProduct, useProduct, useUpdateProduct } from '@/src/api'
+import { useRouter } from 'expo-router'
 
 
 const CreateProductScreen = () => {
@@ -13,8 +15,25 @@ const [price, setPrice] = useState('');
 const [errors, setErrors] = useState('');
 const [image, setImage] = useState<string | null>(null);
 
-const { id } = useLocalSearchParams();
+const { id: idString } = useLocalSearchParams();
+const id = parseFloat(typeof idString === 'string' ? idString : idString[0]);
+
 const isUpdating = !!id;
+
+const { mutate: insertProduct } = useInsertProduct();
+const { mutate: updateProduct } = useUpdateProduct();
+const { data: updatingProduct } = useProduct(id);
+
+
+const router = useRouter();
+
+useEffect(() => {
+    if (updatingProduct) {
+        setName(updatingProduct.name);
+        setPrice(updatingProduct.price.toString());
+        setImage(updatingProduct.image);
+    }
+}, [updatingProduct]);
 
 const resetFields = () => {
     setName('');
@@ -41,7 +60,7 @@ const validateInput = () => {
 
 const onSubmit = () => {
     if (isUpdating) {
-        onUpdateCreate();
+        onUpdate();
     } else {
         onCreate();
     }
@@ -51,16 +70,24 @@ const onCreate = () => {
     if (!validateInput()) {
         return;
     }
-    // save in the database
-    resetFields();
+    insertProduct({ name, price: parseFloat(price), image }, {
+        onSuccess: () => {
+         resetFields();
+         router.back();
+        }
+    }); 
 };
 
-const onUpdateCreate = () => {
+const onUpdate = () => {
     if (!validateInput()) {
         return;
     }
-    // save in the database
-    resetFields();
+updateProduct({ id, name, price: parseFloat(price), image }, {
+        onSuccess: () => {
+            resetFields();
+            router.back();
+        }
+    });
 };
 
 const confirmDelete = () => {

@@ -21,7 +21,6 @@ const index = () => {
         return <Redirect href={"/(user)"} />;
     }
 
-    console.log(session);
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 10}}>
