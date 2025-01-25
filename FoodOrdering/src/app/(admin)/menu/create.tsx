@@ -5,7 +5,7 @@ import { defaultPizzaImage } from '../../../components/ProductListItem'
 import Colors from '../../../constants/Colors'
 import * as ImagePicker from 'expo-image-picker'
 import { Stack, useLocalSearchParams } from 'expo-router'
-import { useInsertProduct, useProduct, useUpdateProduct } from '@/src/api'
+import { useInsertProduct, useProduct, useUpdateProduct, useDeleteProduct } from '@/src/api'
 import { useRouter } from 'expo-router'
 
 
@@ -23,6 +23,8 @@ const isUpdating = !!id;
 const { mutate: insertProduct } = useInsertProduct();
 const { mutate: updateProduct } = useUpdateProduct();
 const { data: updatingProduct } = useProduct(id);
+const { mutate: deleteProduct } = useDeleteProduct();
+
 
 
 const router = useRouter();
@@ -105,7 +107,13 @@ const confirmDelete = () => {
 }
 
 const onDelete = () => {
-    console.warn('DELETE!!!!!!')}
+    deleteProduct(id, {
+        onSuccess: () => {
+            resetFields();
+            router.replace('/(admin)');
+        },
+    });
+};
 
 
 const pickImage = async () => {
