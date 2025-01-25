@@ -1,5 +1,5 @@
 import ProductListItem from '../../../components/ProductListItem';
-import { useProductList } from '@/src/api';
+import { useProductList } from '@/src/api/products';
 import { ActivityIndicator, Text, FlatList } from 'react-native';
 
 

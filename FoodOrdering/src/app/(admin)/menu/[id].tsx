@@ -6,7 +6,7 @@ import { useCart } from '@/src/providers/CartProviders';
 import { PizzaSize } from '@/src/types';
 import { FontAwesome } from '@expo/vector-icons';
 import Colors from '@/src/constants/Colors';
-import { useProduct } from '@/src/api';
+import { useProduct } from '@/src/api/products';
 import { ActivityIndicator } from 'react-native';
 
 

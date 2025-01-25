@@ -5,7 +5,7 @@ import { defaultPizzaImage } from '../../../components/ProductListItem'
 import Colors from '../../../constants/Colors'
 import * as ImagePicker from 'expo-image-picker'
 import { Stack, useLocalSearchParams } from 'expo-router'
-import { useInsertProduct, useProduct, useUpdateProduct, useDeleteProduct } from '@/src/api'
+import { useInsertProduct, useProduct, useUpdateProduct, useDeleteProduct } from '@/src/api/products'
 import { useRouter } from 'expo-router'
 
 
