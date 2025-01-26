@@ -6,7 +6,7 @@ import Button from '@/src/components/Button';
 
 
 const CartScreen = () => {
-    const { items, total } = useCart();
+    const { items, total, checkout } = useCart();
 
     return (
         <View style={{ padding: 10 }}>
@@ -19,7 +19,7 @@ const CartScreen = () => {
             <Text style={{ margin: 20, fontSize: 20, fontWeight: '500' }}>
                 Total : ${total}
             </Text>
-            <Button text='Checkout' />
+            <Button text='Checkout' onPress={checkout} />
 
             <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
         </View>

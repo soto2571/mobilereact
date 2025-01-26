@@ -4,7 +4,7 @@ import { useAdminOrderList } from '@/src/api/orders';
 
 export default function OrdersScreen() {
 
-    const { data: orders, error, isLoading } = useAdminOrderList();
+    const { data: orders, error, isLoading } = useAdminOrderList({ archive: false });
 
     if (isLoading) {
         return <ActivityIndicator />;
