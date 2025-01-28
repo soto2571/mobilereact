@@ -5,7 +5,7 @@ import { defaultPizzaImage } from './ProductListItem';
 import { Tables } from '../types';
 
 type OrderItemListItemProps = {
-  item: Tables<'order_items'>;
+  item: { products: Tables<'products' >} & Tables<'order_items'>;
 };
 
 const OrderItemListItem = ({ item }: OrderItemListItemProps) => {

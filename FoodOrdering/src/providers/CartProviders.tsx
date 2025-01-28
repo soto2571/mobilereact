@@ -4,7 +4,6 @@ import { randomUUID } from 'expo-crypto';
 import { useInsertOrder } from '../api/orders';
 import { useRouter } from 'expo-router';
 import { useInsertOrderItems } from '../api/order-items';
-import OrderItemListItem from '../components/OrderItemListItem';
 
 type Product = Tables<'products'>;
 
@@ -79,7 +78,7 @@ const CartProvider = ({ children }: PropsWithChildren) => {
     const saveOrderItems = (order: Tables<'orders'>) => {
 
         const orderItems = items.map(cartItem => ({
-            order_id: order.id, // corrected variable
+            order_id: order.id,
             product_id: cartItem.product_id,
             quantity: cartItem.quantity,
             size: cartItem.size,
