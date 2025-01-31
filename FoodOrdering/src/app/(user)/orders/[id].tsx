@@ -3,20 +3,23 @@ import { useLocalSearchParams, Stack } from 'expo-router';
 import OrderListItem from '@/src/components/OrderListItem';
 import OrderItemListItem from '@/src/components/OrderItemListItem';
 import { useOrderDetails } from '@/src/api/orders';
+import { useUpdateOrderSubscription } from '@/src/api/orders/subscriptions';
 
 
 
 export default function OrderDetailScreen() {
     const { id: idString } = useLocalSearchParams();
     const id = parseFloat(typeof idString ===  'string' ? idString: idString[0]);
+    
     const {data: order, error, isLoading} = useOrderDetails(id);
+    useUpdateOrderSubscription(id);
 
     if (isLoading) {
         return <ActivityIndicator/>;
     }
 
     if (error) {
-        return <Text>{error.message}</Text>;
+        return <Text>Failed to fetch</Text>;
     }
 
     return (

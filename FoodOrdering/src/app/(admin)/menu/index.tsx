@@ -1,3 +1,4 @@
+import { useInsertOrderSubscription } from '@/src/api/orders/subscriptions';
 import ProductListItem from '../../../components/ProductListItem';
 import { useProductList } from '@/src/api/products';
 import { ActivityIndicator, Text, FlatList } from 'react-native';
@@ -6,6 +7,7 @@ import { ActivityIndicator, Text, FlatList } from 'react-native';
 export default function MenuScreen() {
 
   const { data: products, error, isLoading} = useProductList();
+  useInsertOrderSubscription();
 
   if (isLoading) {
     return <ActivityIndicator />;

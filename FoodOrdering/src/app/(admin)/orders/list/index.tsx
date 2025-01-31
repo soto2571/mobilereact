@@ -4,6 +4,8 @@ import { useAdminOrderList } from '@/src/api/orders';
 import { supabase } from '@/src/lib/supabase';
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
+import { useInsertOrderSubscription } from '@/src/api/orders/subscriptions';
+
 
 export default function OrdersScreen() {
 
@@ -13,22 +15,7 @@ export default function OrdersScreen() {
         isLoading 
     } = useAdminOrderList({ archive: false });
 
-    const queryClient = useQueryClient();
-
-    useEffect(() => {
-        const orders = supabase
-        
-    const channels = supabase.channel('custom-insert-channel')
-    .on(
-    'postgres_changes',
-    { event: 'INSERT', schema: 'public', table: 'orders' },
-    (payload) => {
-        console.log('Change received!', payload);
-        queryClient.invalidateQueries(['orders']);
-    }
-    )
-    .subscribe();
-}, []);
+    useInsertOrderSubscription();
 
     if (isLoading) {
         return <ActivityIndicator />;
